@@ -1,28 +1,17 @@
 package br.com.android.ppm.controleconsumodeagua;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private ConsumoDAO dadosConsumoDAO;
     private List<String> listaPaletesLidas;
     private ListView listviewConsumo;
-    private EditText edtMedia;
-    private EditText edtMediaDiaria;
+    private EditText edtMedia, edtMediaDiaria, edtLeituraAnterior, edtMeta;
     private Double mediaConsumo =0.00;
     private Double mediaConsumoDiario = 0.00;
+    private Double leituraAnteior = 0.00;
+    private Double meta = 0.00;
+
     private Double somaConsumo = 0.00;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
     private Context context;
@@ -56,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         listviewConsumo = (ListView) findViewById(R.id.idLancamentoConsumo);
         edtMedia = (EditText) findViewById(R.id.idMediaConsumo);
+        edtLeituraAnterior = (EditText) findViewById(R.id.idLeituraAnterior);
+        edtMeta = (EditText) findViewById(R.id.idMeta);
         edtMediaDiaria = (EditText) findViewById(R.id.idConsumoDiario);
         dadosConsumoDAO = AppDatabase.getInstance(this).consumoDAO();
         List<ConsumoEntity> listaPaletesPersistidos = this.dadosConsumoDAO.lista();
@@ -103,18 +96,22 @@ public class MainActivity extends AppCompatActivity {
             menorData = dadosConsumoDAO.menorData();
             maiorData = dadosConsumoDAO.maiorData();
             //numDias = dadosConsumoDAO.maiorData();
-
+            mediaConsumo = ((double) somaConsumo/numDias) *30;
+            mediaConsumoDiario = dadosConsumoDAO.maior() - getTop2();
             for(i = menorData; i < maiorData; i++){
                 numDias++;
             }
         }else{
+
             listviewConsumo.setVisibility(View.GONE);
         }
 //        getTop2();
-        mediaConsumo = ((double) somaConsumo/numDias) *30;
-        mediaConsumoDiario = dadosConsumoDAO.maior() - getTop2();
+
         edtMedia.setText(String.valueOf(df2.format(mediaConsumo)));
         edtMediaDiaria.setText(String.valueOf(df2.format(mediaConsumoDiario)));
+        edtLeituraAnterior.setText(String.valueOf(df2.format(leituraAnteior)));
+        edtMeta.setText(String.valueOf(df2.format(meta)));
+
     }
 
 
