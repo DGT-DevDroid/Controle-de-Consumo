@@ -3,6 +3,7 @@ package br.com.android.ppm.controleconsumodeagua;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private Double somaConsumo = 0.00;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
+    private static DecimalFormat df = new DecimalFormat("0");
     private Context context;
     private Double maiorValor;
     private Double menorValor;
@@ -62,12 +64,7 @@ public class MainActivity extends AppCompatActivity {
         List<ConsumoEntity> listaPaletesPersistidos = this.dadosConsumoDAO.lista();
         refreshInformacoes(listaPaletesPersistidos);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goCadastroConsumo();
-            }
-        });
+        fab.setOnClickListener(view -> goCadastroConsumo());
     }
 
     @Override
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -140,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
         edtMedia.setText(String.valueOf(df2.format(mediaConsumo)));
         edtMediaDiaria.setText(String.valueOf(df2.format(mediaConsumoDiario)));
         edtLeituraAnterior.setText(qtd);
-        Double meta = Double.parseDouble(qtd) + 14.00;
-        edtMeta.setText(String.valueOf(meta));
+        Double meta = (Double.parseDouble(qtd) + 14.00)-0.499;
+        edtMeta.setText(String.valueOf(df.format(meta)));
     }
 
     public Double getTop2(){
@@ -171,21 +169,15 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setCancelable(false);
 
-        tvAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvarUltimaLeitura(editQtdUltimaLeitura.getText().toString(), editDataUltimaLeitura.getText().toString());
-                dialog.dismiss();
-            }
+        tvAdicionar.setOnClickListener(v -> {
+            salvarUltimaLeitura(editQtdUltimaLeitura.getText().toString(), editDataUltimaLeitura.getText().toString());
+            dialog.dismiss();
         });
 
 
-        tvFechar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                //refreshInformacoes();
-            }
+        tvFechar.setOnClickListener(v -> {
+            dialog.dismiss();
+            //refreshInformacoes();
         });
 
         dialog.show();
