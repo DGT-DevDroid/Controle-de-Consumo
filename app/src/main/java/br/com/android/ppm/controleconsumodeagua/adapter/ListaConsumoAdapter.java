@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import br.com.android.ppm.controleconsumodeagua.MainActivity;
@@ -24,6 +25,7 @@ public class ListaConsumoAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Consumo> listaConsumo;
     private ConsumoDAO consumoDAO;
+    private static DecimalFormat df2 = new DecimalFormat("##.000");
 
     public ListaConsumoAdapter(Context context, ArrayList<Consumo> listaConsumo){
         this.context = context;
@@ -83,7 +85,7 @@ public class ListaConsumoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.idQdtConsumo.setText(String.valueOf(listaConsumo.get(position).getQtd()));
+        holder.idQdtConsumo.setText(String.valueOf(df2.format(listaConsumo.get(position).getQtd())));
         holder.idData.setText(listaConsumo.get(position).getData());
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override

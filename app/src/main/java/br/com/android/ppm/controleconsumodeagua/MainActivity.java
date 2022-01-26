@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         listviewConsumo = (ListView) findViewById(R.id.idLancamentoConsumo);
         edtMedia = (EditText) findViewById(R.id.idMediaConsumo);
         edtLeituraAnterior = (EditText) findViewById(R.id.idLeituraAnterior);
@@ -75,13 +74,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
+
     private void refreshInformacoes(List<ConsumoEntity> listaPaletesPersistidos){
-
         ArrayList<Consumo> listaConsumoASeremExibidos = new ArrayList<>();
-
         this.listaPaletesLidas = new ArrayList<>();
-
-
         if(listaPaletesPersistidos.size() > 0) {
             for (ConsumoEntity listaConsumo : listaPaletesPersistidos) {
                 Consumo consumoASerExibido = new Consumo();
@@ -96,38 +92,29 @@ public class MainActivity extends AppCompatActivity {
             menorData = dadosConsumoDAO.menorData();
             maiorData = dadosConsumoDAO.maiorData();
             //numDias = dadosConsumoDAO.maiorData();
-            mediaConsumo = ((double) somaConsumo/numDias) *30;
-            mediaConsumoDiario = dadosConsumoDAO.maior() - getTop2();
+
             for(i = menorData; i < maiorData; i++){
                 numDias++;
             }
+            mediaConsumo = ((double) somaConsumo/numDias) *30;
+            mediaConsumoDiario = dadosConsumoDAO.maior() - getTop2();
         }else{
-
             listviewConsumo.setVisibility(View.GONE);
         }
-//        getTop2();
 
         edtMedia.setText(String.valueOf(df2.format(mediaConsumo)));
         edtMediaDiaria.setText(String.valueOf(df2.format(mediaConsumoDiario)));
         edtLeituraAnterior.setText(String.valueOf(df2.format(leituraAnteior)));
         edtMeta.setText(String.valueOf(df2.format(meta)));
-
     }
 
-
     public Double getTop2(){
-
         List<ConsumoEntity> lista;
         lista = (ArrayList<ConsumoEntity>) dadosConsumoDAO.top2();
         Double maior=0.00, menor=0.00;
         for (ConsumoEntity l : lista){
            menor = l.getQtd();
         }
-
-
         return menor;
     }
-
-
-
 }
