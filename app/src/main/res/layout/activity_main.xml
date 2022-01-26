@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AD048C9E"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#AD048C9E"
+        android:padding="4dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <!--                Tipo Padrão-->
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColorHint="@color/white"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idConsumoDiario"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:background="@drawable/edit"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:hint="Consumo do Dia:"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColorHint="@color/white"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/idMediaConsumo"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:background="@drawable/edit"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:textSize="30dp"
+                    android:hint="Média Prevista do Mês:"
+                    android:textStyle="bold"
+
+                    tools:ignore="HardcodedText,RtlHardcoded" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+        <!--            <TextView-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Média"-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:textSize="20dp"-->
+        <!--                android:gravity="center"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:layout_marginBottom="4dp"-->
+        <!--                tools:ignore="HardcodedText" />-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            tools:ignore="InefficientWeight">
+
+            <ListView
+                android:id="@+id/idLancamentoConsumo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+
+                tools:ignore="NestedScrolling" />
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Enviar"
+                android:src="@android:drawable/ic_input_add"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
