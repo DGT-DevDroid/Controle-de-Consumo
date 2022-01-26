@@ -1,18 +1,27 @@
 package br.com.android.ppm.controleconsumodeagua;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.android.ppm.controleconsumodeagua.adapter.ListaConsumoAdapter;
@@ -30,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Double mediaConsumoDiario = 0.00;
     private Double leituraAnteior = 0.00;
     private Double meta = 0.00;
-
+    private SharedPreferences preferences;
     private Double somaConsumo = 0.00;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
     private Context context;
@@ -61,6 +70,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                //addSomething();
+                abreJanelaDeCadastro();
+                return true;
+            case R.id.action_settings:
+                //startSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
     public void goCadastroConsumo(){
         Intent intent = new Intent(this, CadastroConsumoActivity.class);
         startActivity(intent);
@@ -76,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshInformacoes(List<ConsumoEntity> listaPaletesPersistidos){
+        SharedPreferences preferences = getSharedPreferences("UltimaLeitura", MODE_PRIVATE);
+        String qtd = preferences.getString("Qtd", "");
         ArrayList<Consumo> listaConsumoASeremExibidos = new ArrayList<>();
         this.listaPaletesLidas = new ArrayList<>();
         if(listaPaletesPersistidos.size() > 0) {
@@ -104,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
         edtMedia.setText(String.valueOf(df2.format(mediaConsumo)));
         edtMediaDiaria.setText(String.valueOf(df2.format(mediaConsumoDiario)));
-        edtLeituraAnterior.setText(String.valueOf(df2.format(leituraAnteior)));
-        edtMeta.setText(String.valueOf(df2.format(meta)));
+        edtLeituraAnterior.setText(qtd);
+        Double meta = Double.parseDouble(qtd) + 14.00;
+        edtMeta.setText(String.valueOf(meta));
     }
 
     public Double getTop2(){
@@ -116,5 +152,49 @@ public class MainActivity extends AppCompatActivity {
            menor = l.getQtd();
         }
         return menor;
+    }
+    public void abreJanelaDeCadastro(){
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View viewDialog = layoutInflater.inflate(R.layout.dialog_signin, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(viewDialog);
+
+        TextView tvAdicionar = viewDialog.findViewById(R.id.tvAdicionar);
+        TextView tvFechar = viewDialog.findViewById(R.id.tvFechar);
+
+        final EditText editQtdUltimaLeitura = viewDialog.findViewById(R.id.editQtdUltimaLeitura);
+        final EditText editDataUltimaLeitura = viewDialog.findViewById(R.id.editDataUltimaLeitura);
+
+        //editQtdUltimaLeitura.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(9)});
+
+        AlertDialog dialog = alertDialogBuilder.create();
+
+        dialog.setCancelable(false);
+
+        tvAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvarUltimaLeitura(editQtdUltimaLeitura.getText().toString(), editDataUltimaLeitura.getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+
+        tvFechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                //refreshInformacoes();
+            }
+        });
+
+        dialog.show();
+    }
+    private void salvarUltimaLeitura(String editQtdUltimaLeitura, String editDataUltimaLeitura) {
+        preferences = getSharedPreferences("UltimaLeitura", MODE_PRIVATE);
+        SharedPreferences.Editor dados = preferences.edit();
+        dados.putString("Qtd", String.valueOf(editQtdUltimaLeitura));
+        dados.putString("Data", String.valueOf(editDataUltimaLeitura));
+        dados.apply();
     }
 }

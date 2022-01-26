@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#00574B"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        android:text="Informe a qtd em m³"
+        style="?attr/textAppearanceHeadline6"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iTextDataUltimaLeitura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="7dp"
+        >
+
+        <EditText
+            android:id="@+id/editDataUltimaLeitura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:textColor="@color/white"
+            android:hint="Data"
+            android:textColorHint="@color/white"
+            android:layout_gravity="center"
+            android:background="#008577"
+            android:padding="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iTextqtdUltimaLeitura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit"
+        android:layout_marginBottom="7dp"
+        >
+
+        <EditText
+            android:id="@+id/editQtdUltimaLeitura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="13"
+            android:background="#008577"
+            android:textColorHint="@color/white"
+            android:hint="Qtd m³"
+            android:textColor="@color/white"
+            android:inputType="numberDecimal"
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!--                Tipo Padrão-->
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            app:singleSelection="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="20dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tvAdicionar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adicionar"
+                style="?attr/materialButtonOutlinedStyle"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+
+                tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tvFechar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fechar"
+                android:textColor="@color/white"
+                style="?attr/materialButtonOutlinedStyle"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+    </LinearLayout>
+
+</LinearLayout>
