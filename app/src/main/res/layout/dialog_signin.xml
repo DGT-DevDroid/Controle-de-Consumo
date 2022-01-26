@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#00574B"
+    android:background="#AD048C9E"
     android:padding="10dp">
 
     <TextView
@@ -36,11 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:hint="Data"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/black"
             android:layout_gravity="center"
-            android:background="#008577"
+            android:background="#9CDAD3"
             android:padding="20dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -56,13 +56,12 @@
             android:id="@+id/editQtdUltimaLeitura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="13"
-            android:background="#008577"
-            android:textColorHint="@color/white"
+            android:background="#9CDAD3"
             android:hint="Qtd m³"
-            android:textColor="@color/white"
             android:inputType="numberDecimal"
-        />
+            android:maxLength="13"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
